@@ -1,0 +1,14 @@
+package: github.com/yanzay/wednesday
+import:
+- package: github.com/elodina/go-avro
+- package: github.com/elodina/siesta
+- package: github.com/elodina/siesta-producer
+- package: github.com/gocql/gocql
+- package: github.com/hashicorp/vault
+  subpackages:
+  - api
+- package: github.com/julienschmidt/httprouter
+- package: github.com/satori/go.uuid
+- package: github.com/serejja/gonsumer
+- package: github.com/serejja/kafka-client
+- package: github.com/yanzay/log

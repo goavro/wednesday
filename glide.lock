@@ -1,0 +1,71 @@
+hash: 8e02ae1ccb48a2d52af6ccae5f62d32088c497cb2e8d6adf32ad318e0b838d13
+updated: 2016-06-09T11:46:20.125272767+03:00
+imports:
+- name: github.com/elodina/go-avro
+  version: 0c8185d9a3ba82aeac98db3313a268a5b6df99b5
+- name: github.com/elodina/siesta
+  version: fea3d8822e875ffef3895e68f5c2f172e0dd4300
+- name: github.com/elodina/siesta-producer
+  version: a374fc36c515243efb438aed41c536af55d8b19b
+- name: github.com/fatih/structs
+  version: 5ada2f449b108d87dbd8c1e60c32cdd065c27886
+- name: github.com/gocql/gocql
+  version: b7b8a0e04b0cb0ca0b379421c58ec6fab9939b85
+  subpackages:
+  - internal/lru
+  - internal/murmur
+  - internal/streams
+- name: github.com/golang/snappy
+  version: d9eb7a3d35ec988b8585d4a0068e462c27d28380
+- name: github.com/hailocab/go-hostpool
+  version: e80d13ce29ede4452c43dea11e79b9bc8a15b478
+- name: github.com/hashicorp/errwrap
+  version: 7554cd9344cec97297fa6649b055a8c98c2a1e55
+- name: github.com/hashicorp/go-cleanhttp
+  version: ad28ea4487f05916463e2423a55166280e8254b5
+- name: github.com/hashicorp/go-multierror
+  version: d30f09973e19c1dfcd120b2d9c4f168e68d6b5d5
+- name: github.com/hashicorp/go-rootcerts
+  version: 6bb64b370b90e7ef1fa532be9e591a81c3493e00
+- name: github.com/hashicorp/hcl
+  version: d7400db7143f8e869812e50a53acd6c8d92af3b8
+  subpackages:
+  - hcl/ast
+  - hcl/parser
+  - hcl/token
+  - json/parser
+  - hcl/scanner
+  - hcl/strconv
+  - json/scanner
+  - json/token
+- name: github.com/hashicorp/vault
+  version: 6751592b3ab630b0fea3147040b8c4117c0e15d7
+  subpackages:
+  - api
+- name: github.com/julienschmidt/httprouter
+  version: 77366a47451a56bb3ba682481eed85b64fea14e8
+- name: github.com/mitchellh/go-homedir
+  version: 1111e456ffea841564ac0fa5f69c26ef44dafec9
+- name: github.com/mitchellh/mapstructure
+  version: d2dd0262208475919e1a362f675cfc0e7c10e905
+- name: github.com/rcrowley/go-metrics
+  version: eeba7bd0dd01ace6e690fa833b3f22aaec29af43
+- name: github.com/satori/go.uuid
+  version: 879c5887cd475cd7864858769793b2ceb0d44feb
+- name: github.com/serejja/gonsumer
+  version: 703b8df51c414f73990846b4e55983e68b52469e
+- name: github.com/serejja/kafka-client
+  version: f063804a16e53d4d20298516154800baacc0c5d8
+- name: github.com/yanzay/cfg
+  version: 3b647091f880406fdb14edcb309ce750a38d3e85
+- name: github.com/yanzay/log
+  version: 87352bb235060cca8427c8f9fdd68c83b38ba461
+- name: golang.org/x/net
+  version: 3f122ce3dbbe488b7e6a8bdb26f41edec852a40b
+  subpackages:
+  - context
+- name: gopkg.in/cihub/seelog.v2
+  version: d2c6e5aa9fbfdd1c624e140287063c7730654115
+- name: gopkg.in/inf.v0
+  version: 3887ee99ecf07df5b447e9b00d9c0b2adaa9f3e4
+devImports: []
