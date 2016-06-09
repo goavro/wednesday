@@ -1,6 +1,8 @@
 # wednesday
 Fast Avro Schema Registry
 
+![Wednesday](https://upload.wikimedia.org/wikipedia/en/a/ab/Wednesdayswim.jpg)
+
 This system is under active development and **not production ready**.
 
 -
