@@ -5,17 +5,89 @@ Fast Avro Schema Registry
 
 This system is under active development and **not production ready**.
 
--
-Copyright 2016 Yanzay
+- Modes
+  - [Standalone mode](#standalone-mode)
+  - [Cluster mode](#cluster-mode)
+- Storage
+  - [In-memory](#storage-in-memory)
+  - [Cassandra](#storage-cassandra)
+- Authentication
+  - [In-memory](#auth-in-memory)
+  - [Cassandra](#auth-cassandra)
+  - [Vault](#auth-vault)
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+# Installation
 
-   http://www.apache.org/licenses/LICENSE-2.0
+```
+$ go get -u github.com/yanzay/wednesday
+```
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+# Usage
+
+```
+  -brokers string
+      Kafka broker list (default "localhost:9092")
+  -cassandra string
+      Cassandra nodes
+  -cql-version string
+      Cassandra CQL version (default "3.0.0")
+  -log-level value
+      Log level: trace|debug|info|warning|error|fatal (default info)
+  -port int
+      HTTP port to listen (default 8081)
+  -proto-version int
+      Cassandra protocol version (default 3)
+  -topic string
+      Kafka topic (default "schemas"
+```
+
+# Modes
+
+## Standalone mode
+
+You can launch wednesday in standalone mode, just don't set `--brokers` parameter.
+```
+$ wednesday
+```
+
+## Cluster mode
+
+Apache Kafka is used to sync state between instances for cluster mode.
+So you should launch Kafka and give wednesday broker list via `--brokers` parameter.
+```
+$ wednesday --brokers "broker1:9092,broker2:9092,broker3:9092"
+```
+
+# Storage
+
+## In-memory storage
+
+By default wednesday uses in-memory storage to store schemas.
+It is synced via Kafka and if you relaunch instance,
+it will first sync all available schemas from Kafka.
+
+## Cassandra storage
+
+You can use Cassandra to store schemas and configs.
+Just set `--cassandra` parameter pointing to Cassandra cluster.
+Optionally you can set `--cql-version` and `--proto-version`.
+
+```
+$ wednesday --cassandra "cassandra1.cluster,cassandra2.cluster"
+```
+
+# Authentication
+
+TODO
+
+## In-memory
+
+TODO
+
+## Cassandra
+
+TODO
+
+## Vault
+
+TODO
