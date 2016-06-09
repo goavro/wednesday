@@ -5,16 +5,25 @@ Fast Avro Schema Registry
 
 This system is under active development and **not production ready**.
 
+Wednesday is a Avro Schema Registry fully API-compatible with [Confluent Schema Registry](http://docs.confluent.io/2.0.0/schema-registry/docs/index.html).
+
+Additional features:
+- schemas stored in Cassanrda
+- high-available cluster mode
+- authentication support
+
+# Guide
+
 - Modes
   - [Standalone mode](#standalone-mode)
   - [Cluster mode](#cluster-mode)
 - Storage
-  - [In-memory](#storage-in-memory)
-  - [Cassandra](#storage-cassandra)
+  - [In-memory](#in-memory-storage)
+  - [Cassandra](#cassandra-storage)
 - Authentication
-  - [In-memory](#auth-in-memory)
-  - [Cassandra](#auth-cassandra)
-  - [Vault](#auth-vault)
+  - [In-memory](#in-memory)
+  - [Cassandra](#cassandra)
+  - [Vault](#vault)
 
 # Installation
 
@@ -38,7 +47,7 @@ $ go get -u github.com/yanzay/wednesday
   -proto-version int
       Cassandra protocol version (default 3)
   -topic string
-      Kafka topic (default "schemas"
+      Kafka topic (default "schemas")
 ```
 
 # Modes
