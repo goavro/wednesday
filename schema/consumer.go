@@ -24,7 +24,7 @@ func NewConsumer(brokerList []string, store storage.StorageStateWriter, multiuse
 		panic(err)
 	}
 	consumerConfig := gonsumer.NewConfig()
-	consumerConfig.Group = "ulysses-group"
+	consumerConfig.Group = "wednesday-group"
 	consumerConfig.AutoCommitEnable = false
 	c.consumer = gonsumer.New(client, consumerConfig, c.consumerStrategy)
 	if multiuser {

@@ -2,10 +2,13 @@ package storage
 
 import (
 	"strings"
+	"time"
 
 	"github.com/gocql/gocql"
 	"github.com/yanzay/log"
 )
+
+const maxRetries = 15
 
 type CassandraStorage struct {
 	connection *gocql.Session
@@ -16,8 +19,21 @@ func NewCassandraStorage(urls string, protoVersion int, cqlVersion string) *Cass
 	cluster := gocql.NewCluster(nodes...)
 	cluster.CQLVersion = cqlVersion
 	cluster.ProtoVersion = protoVersion
-	cluster.Keyspace = "avro"
-	session, err := cluster.CreateSession()
+	cluster.ReconnectInterval = 5 * time.Second
+	// cluster.Keyspace = "avro"
+	var err error
+	var session *gocql.Session
+	retries := 0
+	for session, err = cluster.CreateSession(); err != nil && retries < maxRetries; session, err = cluster.CreateSession() {
+		log.Infof("Can't connect to cassandra: %s", err)
+		log.Info("Retrying...")
+		time.Sleep(3 * time.Second)
+		retries++
+	}
+	if err != nil {
+		log.Fatal(err)
+	}
+	err = initStorage(session)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -29,7 +45,7 @@ func NewCassandraStorage(urls string, protoVersion int, cqlVersion string) *Cass
 // implement StorageStateReader interface
 func (cs *CassandraStorage) Empty() bool {
 	var count *int
-	err := cs.connection.Query("SELECT COUNT(*) FROM schemas;").Scan(&count)
+	err := cs.connection.Query("SELECT COUNT(*) FROM avro.schemas;").Scan(&count)
 	if err != nil {
 		log.Error(err)
 		return false
@@ -38,7 +54,7 @@ func (cs *CassandraStorage) Empty() bool {
 }
 
 func (cs *CassandraStorage) GetID(client string, schema string) int64 {
-	iter := cs.connection.Query("SELECT id, avro_schema FROM schemas WHERE client = ?", client).Iter()
+	iter := cs.connection.Query("SELECT id, avro_schema FROM avro.schemas WHERE client = ?", client).Iter()
 	var id *int64
 	var storedSchema *string
 	for iter.Scan(&id, &storedSchema) {
@@ -50,7 +66,7 @@ func (cs *CassandraStorage) GetID(client string, schema string) int64 {
 }
 
 func (cs *CassandraStorage) GetSchemaByID(client string, id int64) (string, bool, error) {
-	iter := cs.connection.Query("SELECT id, avro_schema FROM schemas WHERE client = ?", client).Iter()
+	iter := cs.connection.Query("SELECT id, avro_schema FROM avro.schemas WHERE client = ?", client).Iter()
 	var storedId *int64
 	var schema *string
 	for iter.Scan(&storedId, &schema) {
@@ -65,7 +81,7 @@ func (cs *CassandraStorage) GetSchemaByID(client string, id int64) (string, bool
 }
 
 func (cs *CassandraStorage) GetSubjects(client string) ([]string, error) {
-	iter := cs.connection.Query("SELECT subject FROM schemas WHERE client = ?", client).Iter()
+	iter := cs.connection.Query("SELECT subject FROM avro.schemas WHERE client = ?", client).Iter()
 	subjects := make([]string, 0)
 	var subject *string
 	for iter.Scan(&subject) {
@@ -78,7 +94,7 @@ func (cs *CassandraStorage) GetSubjects(client string) ([]string, error) {
 }
 
 func (cs *CassandraStorage) GetVersions(client string, subject string) ([]int, bool, error) {
-	iter := cs.connection.Query("SELECT version FROM schemas WHERE client = ? AND subject = ?", client, subject).Iter()
+	iter := cs.connection.Query("SELECT version FROM avro.schemas WHERE client = ? AND subject = ?", client, subject).Iter()
 	versions := make([]int, 0)
 	var version *int
 	for iter.Scan(&version) {
@@ -92,7 +108,7 @@ func (cs *CassandraStorage) GetVersions(client string, subject string) ([]int, b
 
 func (cs *CassandraStorage) GetSchema(client string, subject string, version int) (string, bool, error) {
 	var schema *string
-	err := cs.connection.Query("SELECT avro_schema FROM schemas WHERE client = ? AND subject = ? AND version = ?",
+	err := cs.connection.Query("SELECT avro_schema FROM avro.schemas WHERE client = ? AND subject = ? AND version = ?",
 		client, subject, version).Consistency(gocql.One).Scan(&schema)
 	if err != nil {
 		return "", false, err
@@ -103,7 +119,7 @@ func (cs *CassandraStorage) GetSchema(client string, subject string, version int
 func (cs *CassandraStorage) GetLatestSchema(client string, subject string) (*Schema, bool, error) {
 	latest := &Schema{Subject: subject}
 	found := false
-	iter := cs.connection.Query("SELECT id, avro_schema, version FROM schemas WHERE client = ? AND subject = ?", client, subject).Iter()
+	iter := cs.connection.Query("SELECT id, avro_schema, version FROM avro.schemas WHERE client = ? AND subject = ?", client, subject).Iter()
 	var id *int64
 	var schema *string
 	var version *int
@@ -123,7 +139,7 @@ func (cs *CassandraStorage) GetLatestSchema(client string, subject string) (*Sch
 
 func (cs *CassandraStorage) GetGlobalConfig(client string) (string, error) {
 	var level *string
-	err := cs.connection.Query("SELECT level FROM configs WHERE client = ? AND global = true",
+	err := cs.connection.Query("SELECT level FROM avro.configs WHERE client = ? AND global = true",
 		client).Consistency(gocql.One).Scan(&level)
 	if err != nil {
 		return "", err
@@ -133,7 +149,7 @@ func (cs *CassandraStorage) GetGlobalConfig(client string) (string, error) {
 
 func (cs *CassandraStorage) GetSubjectConfig(client string, subject string) (string, bool, error) {
 	var level string
-	err := cs.connection.Query("SELECT level FROM configs WHERE client = ? AND global = false AND subject = ?",
+	err := cs.connection.Query("SELECT level FROM avro.configs WHERE client = ? AND global = false AND subject = ?",
 		client, subject).Consistency(gocql.One).Scan(&level)
 	if err != nil {
 		return "", false, err
@@ -163,18 +179,50 @@ func (cs *CassandraStorage) AddSchema(client string, subject string, id int64, s
 			}
 		}
 	}
-	return cs.connection.Query("INSERT INTO schemas (client, subject, version, id, avro_schema) VALUES (?, ?, ?, ?, ?)",
+	return cs.connection.Query("INSERT INTO avro.schemas (client, subject, version, id, avro_schema) VALUES (?, ?, ?, ?, ?)",
 		client, subject, newVersion, id, schema).Exec()
 }
 
 func (cs *CassandraStorage) SetGlobalConfig(client string, level string) error {
-	return cs.connection.Query("INSERT INTO configs (client, global, subject, level) VALUES (?, true, '', ?)", client, level).Exec()
+	return cs.connection.Query("INSERT INTO avro.configs (client, global, subject, level) VALUES (?, true, '', ?)", client, level).Exec()
 }
 
 func (cs *CassandraStorage) SetSubjectConfig(client string, subject string, level string) error {
-	return cs.connection.Query("INSERT INTO configs (client, global, subject, level) VALUES (?, false, ?, ?)", client, subject, level).Exec()
+	return cs.connection.Query("INSERT INTO avro.configs (client, global, subject, level) VALUES (?, false, ?, ?)", client, subject, level).Exec()
 }
 
 func (cs *CassandraStorage) AddUser(name string, token string, admin bool) error {
 	return nil
+}
+
+func initStorage(session *gocql.Session) error {
+	createKeyspace := `
+CREATE KEYSPACE IF NOT EXISTS avro WITH REPLICATION = {'class': 'SimpleStrategy', 'replication_factor': 1};
+`
+	createSchemas := `CREATE TABLE IF NOT EXISTS avro.schemas (
+  client varchar,
+  subject varchar,
+  version int,
+  id int,
+  avro_schema text,
+  PRIMARY KEY (client, subject, version),
+);
+`
+	createConfigs := `CREATE TABLE IF NOT EXISTS avro.configs (
+  client varchar,
+  global boolean,
+  subject varchar,
+  level varchar,
+  PRIMARY KEY (client, global, subject),
+);
+	`
+	err := session.Query(createKeyspace).Exec()
+	if err != nil {
+		return err
+	}
+	err = session.Query(createSchemas).Exec()
+	if err != nil {
+		return err
+	}
+	return session.Query(createConfigs).Exec()
 }
