@@ -5,7 +5,7 @@ Fast Avro Schema Registry
 
 This system is under active development and **not production ready**.
 
-Wednesday is a Avro Schema Registry fully API-compatible with [Confluent Schema Registry](http://docs.confluent.io/2.0.0/schema-registry/docs/index.html).
+Wednesday is an Avro Schema Registry fully API-compatible with [Confluent Schema Registry](http://docs.confluent.io/2.0.0/schema-registry/docs/index.html).
 
 Additional features:
 - schemas stored in Cassanrda
