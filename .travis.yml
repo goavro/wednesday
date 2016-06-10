@@ -12,5 +12,8 @@ services:
 install:
   - go get -u github.com/Masterminds/glide
   - GOOS=linux GOGC=off go build -v
+  - pwd
+  - ls
+  - ls vendor/github.com/davecgh/go-spew/spew
 
-script: go test -tags=\!integration -v $(glide novendor)
+script: go test -tags=\!integration -v -race $(glide novendor)
