@@ -12,6 +12,5 @@ services:
 install:
   - go get -u github.com/Masterminds/glide
   - GOOS=linux GOGC=off go build -v
-  - docker-compose up -d
 
 script: go test -tag=\!integration -v $(glide novendor)
