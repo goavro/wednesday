@@ -1,0 +1,15 @@
+sudo: required
+
+language: go
+
+go:
+  - 1.6
+  - tip
+
+services:
+  - docker
+
+install:
+  - go get -u github.com/Masterminds/glide
+
+script: go test -tag=\!integration -v $(glide novendor)

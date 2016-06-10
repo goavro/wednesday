@@ -1,3 +1,5 @@
+// +build integration
+
 package schema
 
 import (
@@ -17,7 +19,7 @@ func TestApp(t *testing.T) {
 		Convey("Client should work properly", func() {
 			fmt.Println("Creating new client")
 			client := kafro.NewCachedSchemaRegistryClient("http://localhost:8081")
-			rawSchema := "{\"namespace\": \"net.elodina.kafka.metrics\",\"type\": \"record\",\"name\": \"Timings\",\"fields\": [{\"name\": \"id\", \"type\": \"long\"},{\"name\": \"timings\",  \"type\": {\"type\":\"array\", \"items\": \"long\"} }]}"
+			rawSchema := "{\"namespace\": \"kafka.metrics\",\"type\": \"record\",\"name\": \"Timings\",\"fields\": [{\"name\": \"id\", \"type\": \"long\"},{\"name\": \"timings\",  \"type\": {\"type\":\"array\", \"items\": \"long\"} }]}"
 			schema, err := avro.ParseSchema(rawSchema)
 			So(err, ShouldBeNil)
 			id, err := client.Register("test1", schema)
@@ -39,7 +41,7 @@ func TestApp(t *testing.T) {
 
 func makeLoad(wg *sync.WaitGroup) {
 	client := kafro.NewCachedSchemaRegistryClient("http://localhost:8081")
-	rawSchema := "{\"namespace\": \"net.elodina.kafka.metrics\",\"type\": \"record\",\"name\": \"Timings\",\"fields\": [{\"name\": \"id\", \"type\": \"long\"},{\"name\": \"timings\",  \"type\": {\"type\":\"array\", \"items\": \"long\"} }]}"
+	rawSchema := "{\"namespace\": \"kafka.metrics\",\"type\": \"record\",\"name\": \"Timings\",\"fields\": [{\"name\": \"id\", \"type\": \"long\"},{\"name\": \"timings\",  \"type\": {\"type\":\"array\", \"items\": \"long\"} }]}"
 	schema, err := avro.ParseSchema(rawSchema)
 	_, err = client.Register("test1", schema)
 	if err != nil {

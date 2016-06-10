@@ -1,3 +1,5 @@
+// +build integration
+
 package storage
 
 import (
@@ -5,6 +7,7 @@ import (
 	"testing"
 
 	"github.com/elodina/siesta"
+	producer "github.com/elodina/siesta-producer"
 )
 
 var offset int64 = 1

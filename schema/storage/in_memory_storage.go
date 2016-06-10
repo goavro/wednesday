@@ -87,8 +87,6 @@ func (ims *InMemoryStorage) GetID(client string, schema string) int64 {
 func (ims *InMemoryStorage) GetSchemaByID(client string, id int64) (string, bool, error) {
 	ims.mutex.RLock()
 	defer ims.mutex.RUnlock()
-	fmt.Printf("GetSchemaByID(%s, %d)\n", client, id)
-	fmt.Printf("schemas: %v\n", ims.schemas)
 
 	if clientSchema, ok := ims.schemas[client]; ok {
 		if schema, found := clientSchema[id]; found {

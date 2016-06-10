@@ -12,3 +12,10 @@ import:
 - package: github.com/serejja/gonsumer
 - package: github.com/serejja/kafka-client
 - package: github.com/yanzay/log
+- package: gopkg.in/stretchr/testify.v1
+  subpackages:
+  - assert
+  - require
+- package: github.com/davecgh/go-spew
+- package: github.com/pmezard/go-difflib
+- package: github.com/stretchr/testify
