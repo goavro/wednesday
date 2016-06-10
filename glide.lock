@@ -1,36 +1,36 @@
 hash: bf6ce8b703d9e9682135a90caf5e7d2a402f64f76a448a5b20b12ed59ef61c69
-updated: 2016-06-10T15:55:53.317877522+03:00
+updated: 2016-06-10T16:29:12.046945061+03:00
 imports:
 - name: github.com/davecgh/go-spew
   version: 5215b55f46b2b919f50a1df0eaa5886afe4e3b3d
 - name: github.com/elodina/go-avro
-  version: 9cae38d1ed8a2da5e2ccb817589f77a016dd11a7
+  version: 0c8185d9a3ba82aeac98db3313a268a5b6df99b5
 - name: github.com/elodina/siesta
-  version: 9cae38d1ed8a2da5e2ccb817589f77a016dd11a7
+  version: fea3d8822e875ffef3895e68f5c2f172e0dd4300
 - name: github.com/elodina/siesta-producer
-  version: 9cae38d1ed8a2da5e2ccb817589f77a016dd11a7
+  version: a374fc36c515243efb438aed41c536af55d8b19b
 - name: github.com/fatih/structs
-  version: 9cae38d1ed8a2da5e2ccb817589f77a016dd11a7
+  version: 5ada2f449b108d87dbd8c1e60c32cdd065c27886
 - name: github.com/gocql/gocql
-  version: 9cae38d1ed8a2da5e2ccb817589f77a016dd11a7
+  version: b7b8a0e04b0cb0ca0b379421c58ec6fab9939b85
   subpackages:
   - internal/lru
   - internal/murmur
   - internal/streams
 - name: github.com/golang/snappy
-  version: 9cae38d1ed8a2da5e2ccb817589f77a016dd11a7
+  version: d9eb7a3d35ec988b8585d4a0068e462c27d28380
 - name: github.com/hailocab/go-hostpool
-  version: 9cae38d1ed8a2da5e2ccb817589f77a016dd11a7
+  version: e80d13ce29ede4452c43dea11e79b9bc8a15b478
 - name: github.com/hashicorp/errwrap
-  version: 9cae38d1ed8a2da5e2ccb817589f77a016dd11a7
+  version: 7554cd9344cec97297fa6649b055a8c98c2a1e55
 - name: github.com/hashicorp/go-cleanhttp
-  version: 9cae38d1ed8a2da5e2ccb817589f77a016dd11a7
+  version: ad28ea4487f05916463e2423a55166280e8254b5
 - name: github.com/hashicorp/go-multierror
-  version: 9cae38d1ed8a2da5e2ccb817589f77a016dd11a7
+  version: d30f09973e19c1dfcd120b2d9c4f168e68d6b5d5
 - name: github.com/hashicorp/go-rootcerts
-  version: 9cae38d1ed8a2da5e2ccb817589f77a016dd11a7
+  version: 6bb64b370b90e7ef1fa532be9e591a81c3493e00
 - name: github.com/hashicorp/hcl
-  version: 9cae38d1ed8a2da5e2ccb817589f77a016dd11a7
+  version: d7400db7143f8e869812e50a53acd6c8d92af3b8
   subpackages:
   - hcl/ast
   - hcl/parser
@@ -41,41 +41,41 @@ imports:
   - json/scanner
   - json/token
 - name: github.com/hashicorp/vault
-  version: 9cae38d1ed8a2da5e2ccb817589f77a016dd11a7
+  version: a1adb4081f6a39f753de8270df1f7ac9ac55dc4f
   subpackages:
   - api
 - name: github.com/julienschmidt/httprouter
-  version: 9cae38d1ed8a2da5e2ccb817589f77a016dd11a7
+  version: 77366a47451a56bb3ba682481eed85b64fea14e8
 - name: github.com/mitchellh/go-homedir
-  version: 9cae38d1ed8a2da5e2ccb817589f77a016dd11a7
+  version: 1111e456ffea841564ac0fa5f69c26ef44dafec9
 - name: github.com/mitchellh/mapstructure
-  version: 9cae38d1ed8a2da5e2ccb817589f77a016dd11a7
+  version: d2dd0262208475919e1a362f675cfc0e7c10e905
 - name: github.com/pmezard/go-difflib
   version: 792786c7400a136282c1664665ae0a8db921c6c2
 - name: github.com/rcrowley/go-metrics
-  version: 9cae38d1ed8a2da5e2ccb817589f77a016dd11a7
+  version: eeba7bd0dd01ace6e690fa833b3f22aaec29af43
 - name: github.com/satori/go.uuid
-  version: 9cae38d1ed8a2da5e2ccb817589f77a016dd11a7
+  version: 879c5887cd475cd7864858769793b2ceb0d44feb
 - name: github.com/serejja/gonsumer
-  version: 9cae38d1ed8a2da5e2ccb817589f77a016dd11a7
+  version: 703b8df51c414f73990846b4e55983e68b52469e
 - name: github.com/serejja/kafka-client
-  version: 9cae38d1ed8a2da5e2ccb817589f77a016dd11a7
+  version: f063804a16e53d4d20298516154800baacc0c5d8
 - name: github.com/stretchr/testify
   version: 8d64eb7173c7753d6419fd4a9caf057398611364
 - name: github.com/yanzay/cfg
-  version: 9cae38d1ed8a2da5e2ccb817589f77a016dd11a7
+  version: 3b647091f880406fdb14edcb309ce750a38d3e85
 - name: github.com/yanzay/log
-  version: 9cae38d1ed8a2da5e2ccb817589f77a016dd11a7
+  version: 87352bb235060cca8427c8f9fdd68c83b38ba461
 - name: golang.org/x/net
-  version: 9cae38d1ed8a2da5e2ccb817589f77a016dd11a7
+  version: 3f122ce3dbbe488b7e6a8bdb26f41edec852a40b
   subpackages:
   - context
 - name: gopkg.in/cihub/seelog.v2
-  version: 9cae38d1ed8a2da5e2ccb817589f77a016dd11a7
+  version: d2c6e5aa9fbfdd1c624e140287063c7730654115
 - name: gopkg.in/inf.v0
-  version: 9cae38d1ed8a2da5e2ccb817589f77a016dd11a7
+  version: 3887ee99ecf07df5b447e9b00d9c0b2adaa9f3e4
 - name: gopkg.in/stretchr/testify.v1
-  version: 9cae38d1ed8a2da5e2ccb817589f77a016dd11a7
+  version: f390dcf405f7b83c997eac1b06768bb9f44dec18
   subpackages:
   - assert
   - require
