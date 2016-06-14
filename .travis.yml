@@ -13,4 +13,4 @@ install:
   - go get -u github.com/Masterminds/glide
   - GOOS=linux GOGC=off go build -v
 
-script: go test -tags=\!integration -v -race $(glide novendor)
+script: go test -v -race $(glide novendor)
