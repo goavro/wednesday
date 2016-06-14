@@ -49,12 +49,28 @@ func DefaultRegistryConfig() SchemaRegistryConfig {
 	}
 }
 
+type MockWatcher struct{}
+
+func (*MockWatcher) Watch(topic string) {
+
+}
+
 func NewApp(config SchemaRegistryConfig) *App {
 	auth.InitStorage(config.VaultURL, os.Getenv("VAULT_TOKEN"))
-	producer := createProducer(config.Brokers)
 
-	kafkaStorage := storage.NewKafkaStorage(producer)
 	inmemStorage := storage.NewInMemoryStorage()
+
+	var consumer api.Watcher
+	var kafkaStorage storage.StorageWriter
+	if len(config.Brokers) > 0 {
+		producer := createProducer(config.Brokers)
+		kafkaStorage = storage.NewKafkaStorage(producer)
+		consumer = NewConsumer(config.Brokers, inmemStorage, config.Multiuser)
+	} else {
+		kafkaStorage = &storage.MockStorageWriter{}
+		consumer = &MockWatcher{}
+	}
+
 	var store storage.Storage
 
 	if config.Cassandra == "" {
@@ -73,12 +89,8 @@ func NewApp(config SchemaRegistryConfig) *App {
 		}
 	}
 
-	consumer := NewConsumer(config.Brokers, inmemStorage, config.Multiuser)
-
 	return &App{
 		store:     store,
-		producer:  producer,
-		consumer:  consumer,
 		server:    api.NewApiServer(fmt.Sprintf(":%d", config.Port), store, consumer, config.Multiuser, config.Topic),
 		registrar: config.Registrar,
 		host:      config.Host,

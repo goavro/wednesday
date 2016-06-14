@@ -9,7 +9,7 @@ import (
 )
 
 var (
-	brokers      = flag.String("brokers", "localhost:9092", "Kafka broker list")
+	brokers      = flag.String("brokers", "", "Kafka broker list")
 	topic        = flag.String("topic", "schemas", "Kafka topic")
 	port         = flag.Int("port", 8081, "HTTP port to listen")
 	cassandra    = flag.String("cassandra", "", "Cassandra nodes")
@@ -20,7 +20,12 @@ var (
 func main() {
 	flag.Parse()
 	registryConfig := schema.DefaultRegistryConfig()
-	registryConfig.Brokers = strings.Split(*brokers, ",")
+	if len(*brokers) > 0 {
+		registryConfig.Brokers = strings.Split(*brokers, ",")
+	} else {
+		registryConfig.Brokers = []string{}
+	}
+
 	registryConfig.Cassandra = *cassandra
 	registryConfig.Port = *port
 	registryConfig.Topic = *topic

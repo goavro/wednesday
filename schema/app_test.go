@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"sync"
 	"testing"
+	"time"
 
 	avro "github.com/elodina/go-avro"
 	kafro "github.com/elodina/go-kafka-avro"
@@ -14,8 +15,12 @@ import (
 
 func TestApp(t *testing.T) {
 	Convey("Given a schema registry server", t, func() {
-		app := NewApp(DefaultRegistryConfig())
+		config := DefaultRegistryConfig()
+		config.Brokers = []string{"kafka:9092"}
+		config.Cassandra = "cassandra"
+		app := NewApp(config)
 		go app.Start()
+		time.Sleep(5 * time.Second)
 		Convey("Client should work properly", func() {
 			fmt.Println("Creating new client")
 			client := kafro.NewCachedSchemaRegistryClient("http://localhost:8081")

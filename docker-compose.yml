@@ -1,12 +1,3 @@
-wednesday:
-  build: .
-  hostname: wednesday
-  command: wednesday --brokers kafka:9092 --cassandra cassandra
-  ports:
-    - "8081:8081"
-  links:
-    - kafka
-    - cassandra
 kafka:
   image: spotify/kafka
   ports:
@@ -17,3 +8,5 @@ kafka:
     - ADVERTISED_PORT=9092
 cassandra:
   image: cassandra
+  ports:
+    - 9042:9042

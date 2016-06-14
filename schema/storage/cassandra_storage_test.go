@@ -5,8 +5,8 @@ package storage
 import "testing"
 
 func prepare() *CassandraStorage {
-	store := NewCassandraStorage("localhost", 3, "3.0.0")
-	err := store.connection.Query("TRUNCATE schemas").Exec()
+	store := NewCassandraStorage("cassandra", 3, "3.0.0")
+	err := store.connection.Query("TRUNCATE avro.schemas").Exec()
 	if err != nil {
 		panic(err)
 	}
@@ -14,7 +14,7 @@ func prepare() *CassandraStorage {
 }
 
 func TestNewCassandraStorage(t *testing.T) {
-	store := NewCassandraStorage("localhost", 3, "3.0.0")
+	store := NewCassandraStorage("cassandra", 3, "3.0.0")
 	if store == nil {
 		t.Fail()
 	}
