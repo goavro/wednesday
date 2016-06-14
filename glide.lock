@@ -1,16 +1,18 @@
-hash: bf6ce8b703d9e9682135a90caf5e7d2a402f64f76a448a5b20b12ed59ef61c69
-updated: 2016-06-10T16:29:12.046945061+03:00
+hash: 6a8b4366eb4c396884d849f42214f55206ca9fbe7b49e3f00b94a345b1805d97
+updated: 2016-06-14T15:01:43.038081156+03:00
 imports:
 - name: github.com/davecgh/go-spew
   version: 5215b55f46b2b919f50a1df0eaa5886afe4e3b3d
 - name: github.com/elodina/go-avro
   version: 0c8185d9a3ba82aeac98db3313a268a5b6df99b5
+- name: github.com/elodina/go-kafka-avro
+  version: ab6b1d1c9a2361e639af25c13653fee505b5d2ce
 - name: github.com/elodina/siesta
   version: fea3d8822e875ffef3895e68f5c2f172e0dd4300
 - name: github.com/elodina/siesta-producer
   version: a374fc36c515243efb438aed41c536af55d8b19b
 - name: github.com/fatih/structs
-  version: 5ada2f449b108d87dbd8c1e60c32cdd065c27886
+  version: f23af605dff07e721ef0321469a544acfce4ce07
 - name: github.com/gocql/gocql
   version: b7b8a0e04b0cb0ca0b379421c58ec6fab9939b85
   subpackages:
@@ -41,9 +43,11 @@ imports:
   - json/scanner
   - json/token
 - name: github.com/hashicorp/vault
-  version: a1adb4081f6a39f753de8270df1f7ac9ac55dc4f
+  version: f627c01df8d7bebb403cf899ca1beb24f5fc84cd
   subpackages:
   - api
+- name: github.com/jtolds/gls
+  version: 8ddce2a84170772b95dd5d576c48d517b22cac63
 - name: github.com/julienschmidt/httprouter
   version: 77366a47451a56bb3ba682481eed85b64fea14e8
 - name: github.com/mitchellh/go-homedir
@@ -53,13 +57,17 @@ imports:
 - name: github.com/pmezard/go-difflib
   version: 792786c7400a136282c1664665ae0a8db921c6c2
 - name: github.com/rcrowley/go-metrics
-  version: eeba7bd0dd01ace6e690fa833b3f22aaec29af43
+  version: cfa5a85e9f0abbdf1701b59082c36fc7bff10759
 - name: github.com/satori/go.uuid
   version: 879c5887cd475cd7864858769793b2ceb0d44feb
 - name: github.com/serejja/gonsumer
   version: 703b8df51c414f73990846b4e55983e68b52469e
 - name: github.com/serejja/kafka-client
   version: f063804a16e53d4d20298516154800baacc0c5d8
+- name: github.com/smartystreets/assertions
+  version: 40711f7748186bbf9c99977cd89f21ce1a229447
+- name: github.com/smartystreets/goconvey
+  version: c53abc99456fa3402dd33c15ee51c3e545e04a3f
 - name: github.com/stretchr/testify
   version: 8d64eb7173c7753d6419fd4a9caf057398611364
 - name: github.com/yanzay/cfg

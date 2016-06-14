@@ -378,7 +378,7 @@ func (c *Core) wrapInCubbyhole(req *logical.Request, resp *logical.Response) (*l
 	creationTime := time.Now()
 	te := TokenEntry{
 		Path:           req.Path,
-		Policies:       []string{"cubbyhole-response-wrapping"},
+		Policies:       []string{"response-wrapping"},
 		CreationTime:   creationTime.Unix(),
 		TTL:            resp.WrapInfo.TTL,
 		NumUses:        1,
@@ -392,6 +392,12 @@ func (c *Core) wrapInCubbyhole(req *logical.Request, resp *logical.Response) (*l
 
 	resp.WrapInfo.Token = te.ID
 	resp.WrapInfo.CreationTime = creationTime
+
+	// This will only be non-nil if this response contains a token, so in that
+	// case put the accessor in the wrap info.
+	if resp.Auth != nil {
+		resp.WrapInfo.WrappedAccessor = resp.Auth.Accessor
+	}
 
 	httpResponse := logical.SanitizeResponse(resp)
 
@@ -432,7 +438,7 @@ func (c *Core) wrapInCubbyhole(req *logical.Request, resp *logical.Response) (*l
 
 	auth := &logical.Auth{
 		ClientToken: te.ID,
-		Policies:    []string{"cubbyhole-response-wrapping"},
+		Policies:    []string{"response-wrapping"},
 		LeaseOptions: logical.LeaseOptions{
 			TTL:       te.TTL,
 			Renewable: false,

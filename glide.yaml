@@ -19,3 +19,7 @@ import:
 - package: github.com/davecgh/go-spew
 - package: github.com/pmezard/go-difflib
 - package: github.com/stretchr/testify
+- package: github.com/elodina/go-kafka-avro
+- package: github.com/smartystreets/goconvey
+- package: github.com/jtolds/gls
+- package: github.com/smartystreets/assertions
