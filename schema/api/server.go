@@ -5,10 +5,10 @@ import (
 	"net/http"
 
 	avro "github.com/elodina/go-avro"
+	"github.com/goavro/wednesday/auth"
+	"github.com/goavro/wednesday/schema/storage"
 	"github.com/julienschmidt/httprouter"
 	"github.com/yanzay/log"
-	"github.com/yanzay/wednesday/auth"
-	"github.com/yanzay/wednesday/schema/storage"
 )
 
 type Watcher interface {

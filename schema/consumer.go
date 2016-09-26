@@ -3,10 +3,10 @@ package schema
 import (
 	"encoding/json"
 
+	"github.com/goavro/wednesday/schema/storage"
 	"github.com/serejja/gonsumer"
 	client "github.com/serejja/kafka-client"
 	"github.com/yanzay/log"
-	"github.com/yanzay/wednesday/schema/storage"
 )
 
 type Consumer struct {

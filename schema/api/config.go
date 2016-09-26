@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"net/http"
 
+	"github.com/goavro/wednesday/schema/storage"
+	"github.com/goavro/wednesday/schema/validation"
 	"github.com/julienschmidt/httprouter"
-	"github.com/yanzay/wednesday/schema/storage"
-	"github.com/yanzay/wednesday/schema/validation"
 )
 
 var compatibilityCheckers = map[string]validation.CompatibilityChecker{

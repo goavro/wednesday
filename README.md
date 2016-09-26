@@ -1,7 +1,7 @@
 # wednesday
 Fast Avro Schema Registry
 
-[![Build Status](https://travis-ci.org/yanzay/wednesday.svg?branch=master)](https://travis-ci.org/yanzay/wednesday)
+[![Build Status](https://travis-ci.org/goavro/wednesday.svg?branch=master)](https://travis-ci.org/goavro/wednesday)
 
 ![Wednesday](https://upload.wikimedia.org/wikipedia/en/a/ab/Wednesdayswim.jpg)
 
@@ -30,7 +30,7 @@ Additional features:
 # Installation
 
 ```
-$ go get -u github.com/yanzay/wednesday
+$ go get -u github.com/goavro/wednesday
 ```
 
 # Usage

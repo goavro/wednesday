@@ -4,8 +4,8 @@ import (
 	"flag"
 	"strings"
 
+	"github.com/goavro/wednesday/schema"
 	"github.com/yanzay/log"
-	"github.com/yanzay/wednesday/schema"
 )
 
 var (

@@ -5,10 +5,10 @@ import (
 	"os"
 
 	producer "github.com/elodina/siesta-producer"
+	"github.com/goavro/wednesday/auth"
+	"github.com/goavro/wednesday/schema/api"
+	"github.com/goavro/wednesday/schema/storage"
 	"github.com/yanzay/log"
-	"github.com/yanzay/wednesday/auth"
-	"github.com/yanzay/wednesday/schema/api"
-	"github.com/yanzay/wednesday/schema/storage"
 )
 
 type App struct {

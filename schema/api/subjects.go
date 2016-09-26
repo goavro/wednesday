@@ -63,7 +63,6 @@ func (as *ApiServer) GetVersion(w http.ResponseWriter, r *http.Request, ps httpr
 	versionStr := ps.ByName("version")
 	var version int
 	var err error
-	fmt.Printf("Requested version: %s\n", versionStr)
 	if versionStr == "latest" {
 		latestSchema, found, _ := as.storage.GetLatestSchema(client, subject)
 		if !found {
